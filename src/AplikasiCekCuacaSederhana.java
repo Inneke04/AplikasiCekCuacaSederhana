@@ -3,7 +3,24 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.util.ArrayList;
+import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import org.json.JSONObject; 
 /**
  *
  * @author user
@@ -15,7 +32,9 @@ public class AplikasiCekCuacaSederhana extends javax.swing.JFrame {
      */
     public AplikasiCekCuacaSederhana() {
         initComponents();
+        start();
     }
+    ArrayList<String> kotaFavorit = new ArrayList<>();;
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -26,22 +45,353 @@ public class AplikasiCekCuacaSederhana extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanel1 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jTextField1 = new javax.swing.JTextField();
+        jComboBox1 = new javax.swing.JComboBox<>();
+        jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jButton3 = new javax.swing.JButton();
+        jButton4 = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Aplikasi Cek Cuaca Sederhana", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 24))); // NOI18N
+
+        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel1.setText("Masukkan Kota :");
+
+        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel2.setText("Pilih Kota Favorit :");
+
+        jTextField1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField1ActionPerformed(evt);
+            }
+        });
+
+        jComboBox1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+
+        jButton1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jButton1.setText("Cek Cuaca");
+
+        jButton2.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jButton2.setText("Tambah Favorit");
+
+        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel3.setText("Cuaca :");
+
+        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+
+        jButton3.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jButton3.setText("Simpan Data");
+
+        jButton4.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jButton4.setText("Muat Data");
+
+        jTable1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Kota", "Cuaca", "Temperatur"
+            }
+        ));
+        jScrollPane1.setViewportView(jTable1);
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel1))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel3)
+                                .addGap(18, 18, 18)
+                                .addComponent(jLabel4))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jTextField1)
+                                    .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, 153, Short.MAX_VALUE))
+                                .addGap(18, 18, 18)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1))
+                .addContainerGap())
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton1))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton2))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 17, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(jLabel4))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton3)
+                    .addComponent(jButton4))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 319, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(41, 41, 41))
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField1ActionPerformed
+
+        private void muatDataCuaca() {
+        File file = new File("DataCuaca.csv");
+
+        try {
+            if (!file.exists()) {
+                file.createNewFile();
+                try (PrintWriter writer = new PrintWriter(new FileWriter(file))) {
+                    writer.println("Kota,Cuaca,Suhu (°C)");
+                }
+                JOptionPane.showMessageDialog(this, "File DataCuaca.csv berhasil dibuat."); 
+            }
+
+            try (BufferedReader reader = new BufferedReader(new FileReader(file))) { 
+                DefaultTableModel tableModel = (DefaultTableModel) jTable1.getModel(); 
+                String line;
+                tableModel.setRowCount(0);
+                while ((line = reader.readLine()) != null) { 
+                    String[] data = line.split(","); 
+                    tableModel.addRow(data); 
+                }
+                JOptionPane.showMessageDialog(this, "Data berhasil dimuat dari CSV"); 
+            }
+        } catch (IOException e) {
+            e.printStackTrace(); 
+        }
+    }
+    
+    private void getCuaca(String city) {
+        String apiKey = "197296e1fedd93d44c4efadc7962faf9";
+        String urlString = "http://api.openweathermap.org/data/2.5/weather?q=" + city + "&appid=" + apiKey + "&units=metric"; 
+
+        try {
+            URL url = new URL(urlString);
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection(); 
+            conn.setRequestMethod("GET"); 
+            conn.connect(); 
+
+            int responseCode = conn.getResponseCode(); 
+            if (responseCode == 200) { 
+                InputStream inputStream = conn.getInputStream();
+                BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream)); 
+                StringBuilder stringBuilder = new StringBuilder();
+                String line;
+                while ((line = reader.readLine()) != null) { 
+                    stringBuilder.append(line);
+                }
+
+                JSONObject json = new JSONObject(stringBuilder.toString()); 
+                String weather = json.getJSONArray("weather").getJSONObject(0).getString("main");
+                String icon = json.getJSONArray("weather").getJSONObject(0).getString("icon"); 
+                double temp = json.getJSONObject("main").getDouble("temp"); 
+
+                String translatedWeather = terjemahkanCuaca(weather); 
+                jLabel3.setText("Cuaca : " + translatedWeather + " (" + temp + "°C)"); 
+
+                String iconUrl = "http://openweathermap.org/img/wn/" + icon + "@2x.png"; 
+                ImageIcon iconImage = new ImageIcon(new URL(iconUrl));
+                jLabel4.setIcon(iconImage); 
+
+                DefaultTableModel tableModel = (DefaultTableModel) jTable1.getModel(); 
+                tableModel.addRow(new Object[]{city, translatedWeather, temp}); 
+            } else {
+                jLabel3.setText("Kota tidak ditemukan.");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    
+    private void simpanDataCuaca() {
+        try (FileWriter writer = new FileWriter("DataCuaca.csv", true)) { 
+            DefaultTableModel tableModel = (DefaultTableModel) jTable1.getModel(); 
+            for (int i = 0; i < tableModel.getRowCount(); i++) { 
+                String city = tableModel.getValueAt(i, 0).toString(); 
+                String weather = tableModel.getValueAt(i, 1).toString(); 
+                String temp = tableModel.getValueAt(i, 2).toString();
+                writer.append(city).append(",").append(weather).append(",").append(temp).append("\n"); 
+            }
+            JOptionPane.showMessageDialog(this, "Data berhasil disimpan ke CSV");
+        } catch (IOException e) {
+            e.printStackTrace(); 
+        }
+    }
+    
+    private void tambahKotaFavorit() {
+        String city = jTextField1.getText();
+        if (!city.isEmpty() && !kotaFavorit.contains(city)) { 
+            kotaFavorit.add(city);
+            jComboBox1.addItem(city); 
+            JOptionPane.showMessageDialog(this, "Kota " + city + " ditambahkan ke favorit."); 
+        } else if (kotaFavorit.contains(city)) {
+            JOptionPane.showMessageDialog(this, "Kota " + city + " sudah ada di favorit."); 
+        }
+    }
+    
+    private void simpanFavorit() {
+        try (FileWriter writer = new FileWriter("KotaFavorit.txt")) { 
+            for (String city : kotaFavorit) {
+                writer.write(city + "\n"); 
+            }
+        } catch (IOException e) {
+            e.printStackTrace(); 
+        }
+    }
+
+    private void muatFavorit() {
+        File file = new File("KotaFavorit.txt");
+
+        try {
+            if (!file.exists()) { 
+                file.createNewFile();
+                JOptionPane.showMessageDialog(this, "File kota_favorit.txt berhasil dibuat.");
+            }
+
+            try (BufferedReader reader = new BufferedReader(new FileReader(file))) { 
+                String line;
+                kotaFavorit.clear(); 
+                jComboBox1.removeAllItems();
+                while ((line = reader.readLine()) != null) { 
+                    kotaFavorit.add(line); 
+                    jComboBox1.addItem(line); 
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private String terjemahkanCuaca(String weather) {
+        switch (weather.toLowerCase()) {
+            case "clear":
+                return "Cerah";
+            case "clouds":
+                return "Berawan";
+            case "rain":
+                return "Hujan";
+            case "snow":
+                return "Salju";
+            case "thunderstorm":
+                return "Badai Petir";
+            case "drizzle":
+                return "Gerimis";
+            case "mist":
+                return "Kabut";
+            default:
+                return weather;
+        }
+    }
+    
+    private void start() {
+        muatFavorit();
+        Runtime.getRuntime().addShutdownHook(new Thread(() -> { 
+            simpanFavorit();
+        }));
+        
+        String comboBox = (String) jComboBox1.getSelectedItem();
+
+        if (comboBox != null && !comboBox.isEmpty()) {
+            getCuaca(comboBox);
+        }
+
+        jComboBox1.addItemListener(e -> {
+            if (e.getStateChange() == ItemEvent.SELECTED) {
+                String city = (String) jComboBox1.getSelectedItem();
+                getCuaca(city);
+            }
+        });
+
+        jButton1.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String textField = jTextField1.getText();
+                String comboBox = (String) jComboBox1.getSelectedItem();
+
+                if (!textField.isEmpty()) {
+                    getCuaca(textField);
+                } else if (comboBox.isEmpty()) {
+                    JOptionPane.showMessageDialog(null, "Kota harus terisi!");
+                }
+            }
+        });
+
+
+        jButton2.addActionListener(new ActionListener() { 
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                tambahKotaFavorit(); 
+            }
+        });
+
+        jButton3.addActionListener(new ActionListener() { 
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                simpanDataCuaca();
+            }
+        });
+        
+        jButton4.addActionListener(new ActionListener() { 
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                muatDataCuaca(); 
+            }
+        });
+    }
+    
     /**
      * @param args the command line arguments
      */
@@ -78,5 +428,18 @@ public class AplikasiCekCuacaSederhana extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
+    private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable jTable1;
+    private javax.swing.JTextField jTextField1;
     // End of variables declaration//GEN-END:variables
 }
